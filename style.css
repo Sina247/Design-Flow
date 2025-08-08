@@ -1,0 +1,312 @@
+@import url("https://fonts.cdnfonts.com/css/mona-sans");
+
+* {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background: #1e1e1e;
+  font-family: "Mona-Sans", sans-serif;
+  font-family: "Mona Sans", sans-serif;
+}
+
+.container {
+  --sz: min(90vh, clamp(360px, 60vw, 500px));
+  --fz: calc(0.032 * var(--sz));
+  --xv: 0;
+  --yv: 0;
+  width: var(--sz);
+  height: calc(1.05 * var(--sz));
+  max-width: calc(100vw - 24px);
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transform-style: preserve-3d;
+  perspective: 1200px;
+
+  .tilt {
+    width: 86%;
+    height: 86%;
+    border: 1px solid #9b6b51aa;
+    border-radius: 22px;
+    transition: all 0.4s ease-out;
+    box-shadow: 0 0 0 10000px #1e1e1e;
+    transform: rotateX(calc(1deg * var(--xv))) rotateY(calc(1deg * var(--yv)));
+    background: linear-gradient(calc(var(--yv) * -0.4deg), transparent, transparent calc(20% + (-3px * var(--xv))), rgba(255, 255, 255, 0.06) calc(40% + (-3px * var(--xv))), rgba(255, 255, 255, 0.02) calc(70% + (-3px * var(--xv))), transparent calc(90% + (-3px * var(--xv))), transparent);
+
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      left: -12px;
+      top: -12px;
+      margin: auto;
+      width: calc(100% + 24px);
+      height: calc(100% + 24px);
+      border: 1px solid #9b6b5155;
+      border-radius: 28px;
+    }
+
+    padding: 12px 22px;
+
+    span.tag {
+      display: block;
+      width: fit-content;
+      border: 1px solid #fff3;
+      border-radius: 4px;
+      color: #fff;
+      font-size: 0.8em;
+      font-size: calc(0.8 * var(--fz));
+      margin: 0 auto 22px auto;
+      padding: 4px 8px;
+    }
+
+    h2 {
+      font-size: 3.6em;
+      font-size: calc(3.6 * var(--fz));
+      font-weight: 800;
+      line-height: 116%;
+      background: linear-gradient(0deg, #fff8 0%, #fffd 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-align: center;
+      margin: 0;
+    }
+
+    p {
+      font-size: 1.3em;
+      font-size: calc(1.3 * var(--fz));
+      font-weight: 600;
+      line-height: 142%;
+      color: #fff8;
+      text-align: center;
+
+      span {
+        color: #fffc;
+      }
+    }
+  }
+
+  .vortex {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    svg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -6%;
+      width: 88%;
+      margin: auto;
+      opacity: 0.1;
+    }
+  }
+
+  .mist {
+    position: absolute;
+    width: 140%;
+    height: 200%;
+    bottom: -6%;
+    left: -20%;
+    box-shadow: inset 0 0 calc(var(--sz) / 6) calc(var(--sz) / 10) #c13f1f;
+    border-radius: calc(var(--sz) / 2);
+  }
+
+  .orbs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .hide-orb {
+      --ax: calc((3 / 3.6) * var(--sz));
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: calc((1 / 3) * var(--sz));
+      box-shadow: inset 0 calc((0.78) * var(--sz)) calc((0.08) * var(--sz)) calc((-0.18) * var(--sz)) #1e1e1e;
+    }
+
+    .orb {
+      position: absolute;
+      width: calc(var(--sz) / 6);
+      height: calc(var(--sz) / 6);
+      background: #fe1e20;
+      box-shadow: 0 -2px 12px -3px #fe1e20, inset 8px -4px 2px 0 #fff2, inset 0 0 12px 0 #fffc, inset 0 6px 12px -6px #0008, inset 0 32px 12px -12px #0003;
+      border-radius: 100%;
+      left: 0;
+      right: 0;
+      margin: auto;
+      bottom: 20%;
+      opacity: 0;
+      --startX: calc(-0.6 * var(--sz));
+      --startY: 0;
+      --offset: 0s;
+      animation: orbX 24s cubic-bezier(0.11, 0, 0.5, 0) infinite, orbY 24s cubic-bezier(0.64, 0, 0.92, 0) infinite;
+      animation-delay: var(--offset);
+
+      &:nth-child(2) {
+        --startX: calc(0.6 * var(--sz));
+        --offset: 4s;
+      }
+
+      &:nth-child(3) {
+        --startX: calc(-0.3 * var(--sz));
+        --startY: calc(-0.3 * var(--sz));
+        --offset: 8s;
+      }
+
+      &:nth-child(4) {
+        --startX: calc(0.3 * var(--sz));
+        --startY: calc(-0.3 * var(--sz));
+        --offset: 12s;
+      }
+
+      &:nth-child(5) {
+        --startX: calc(-0.6 * var(--sz));
+        --startY: calc(-0.15 * var(--sz));
+        --offset: 16s;
+      }
+
+      &:nth-child(6) {
+        --startX: calc(0.6 * var(--sz));
+        --startY: calc(-0.15 * var(--sz));
+        --offset: 20s;
+      }
+
+      img {
+        width: 64%;
+        height: auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+
+      .dot {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 100%;
+        bottom: 0;
+        margin: auto;
+        width: 2px;
+        height: 1px;
+        background: #fff;
+        transform-origin: 0 -36px;
+        rotate: 0deg;
+        box-shadow: 0 0 4px 1px #fff;
+        animation: innerDot 10s linear infinite, innerDot2 6s ease-in-out infinite;
+
+        &:nth-child(2) {
+          animation: innerDot 12s linear infinite, innerDot2 5s ease-in-out infinite;
+          animation-delay: -2s;
+          scale: 0.8;
+        }
+
+        &:nth-child(3) {
+          animation: innerDot 8s linear infinite, innerDot2 4s ease-in-out infinite;
+          animation-delay: -6s;
+          animation-direction: reverse;
+          scale: 0.7;
+        }
+
+        &:nth-child(4) {
+          animation: innerDot 22s linear infinite, innerDot2 5s ease-in-out infinite;
+          animation-delay: -5s;
+        }
+
+        &:nth-child(5) {
+          animation: innerDot 8s linear infinite, innerDot2 3.4s ease-in-out infinite;
+          animation-delay: -1s;
+          animation-direction: reverse;
+          scale: 0.76;
+        }
+
+        &:nth-child(5) {
+          animation: innerDot 8.6s linear infinite,
+            innerDot2 3.4s ease-in-out infinite;
+          animation-delay: -2s;
+          scale: 0.8;
+        }
+
+        &:nth-child(5) {
+          animation: innerDot 9.2s linear infinite,
+            innerDot2 3.4s ease-in-out infinite;
+          animation-delay: -3s;
+          animation-direction: reverse;
+          scale: 0.9;
+        }
+      }
+    }
+  }
+}
+
+@keyframes innerDot {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes innerDot2 {
+  50% {
+    translate: 0 -16px;
+  }
+
+  100% {
+    translate: 0 0px;
+  }
+}
+
+@keyframes orbX {
+  0% {
+    translate: var(--startX) var(--startY);
+  }
+
+  20% {
+    translate: 0 0;
+  }
+
+  100% {
+    translate: 0 0;
+  }
+}
+
+@keyframes orbY {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  20% {
+    transform: translateY(calc(0.3 * var(--sz))) scale(0.5);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(calc(0.3 * var(--sz))) scale(0.5);
+    opacity: 0;
+  }
+}
